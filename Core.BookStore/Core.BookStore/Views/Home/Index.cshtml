@@ -9,84 +9,18 @@
 <head>
     <title>Index</title>
     <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            alert("Page is loaded successfully")
+        })
+    </script>
 </head>
-<body>
+<body class="container">
     <img src="~/images/logo.jpg" alt="Logo" class="logo" />
-    <h1>Welcome to Book Store Application</h1>
-    @* <h1>Single Line Syntax</h1>
-    <h3>@DateTime.Now</h3>
-    <h3>@DateTime.UtcNow</h3>
-    <h4>Sum=@(3+4)</h4>
-    <hr />
-    <h1>Multi Line Syntax</h1>
-    @{
-    int a = 10;
-    int b = 20;
-    int c = a + b;
-    }
-    <h2>@c</h2>
-    <h3>My email - usename@AppDomain.com</h3>
-    <h3>My twitter - @@myname.com</h3> *@
-    <hr />
-    <h1>Control stmts</h1>
-    @*  @{
-    int a = 10;
-    }
-    @if (a== 5)
-    {
-    a++;
-    <h1>If block is executed! and value=@a</h1>
-    }
-    else if (a == 10)
-    {
-    <h1>Else if is excuted!</h1>
-    }
-    else
-    {
-    <h1>else block is executed!</h1>
-    } *@
-    @*  <hr />
-    <h1>Ternary - ()?..:..</h1>
-    @{
-    int a = 10;
-    int b = 0;
-    }
-    <h2>Ternary : @(a==10?b=10:b=5)</h2>
-    <h2>b value is @b</h2>
-
-    <p>This is sample para from book store application</p> *@
-    <hr />
-   @*  @{
-        int a = 1;
-    }
-    @switch (a)
-    {
-        case 1:
-            <h1>Iam 1</h1>
-            break;
-        case 2:
-            <h1>Iam 2</h1>
-            break;
-        case 3:
-            <h1>Iam 3</h1>
-            break;
-        default:
-            <h1>Iam default</h1>
-            break;
-    } *@
-    <h1>Loops</h1>
-    <h2>for loop</h2>
-    @for (int i = 1; i <= 5; i++)
-    {
-        <h3>For loop @i</h3>
-    }
-    <h2>foreach</h2>
-    @{
-        var list = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-    }
-    @foreach (var item in list)
-    {
-       <h1>@item</h1> 
-    }
+    <h1 class="h1">Welcome to Book Store Application</h1>
+    <input type="button" class="btn btn-primary" value="Save" />
+    <p>This is sample paragraph</p>
 </body>
 </html>
