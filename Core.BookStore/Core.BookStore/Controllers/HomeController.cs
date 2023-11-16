@@ -6,10 +6,20 @@ namespace Core.BookStore.Controllers
 {
     public class HomeController : Controller
     {
+        [ViewData]
+        public string? CustomProp { get; set; }
+
+        [ViewData]
+        public string? Title { get; set; }
+
+        [ViewData]
+        public BookModel? Book { get; set; }
+
         public ViewResult Index()
         {
-            ViewData["prop"] = "Kurra Suresh";
-            ViewData["book"]=new BookModel() { Id = 1,Author="testauthor" };
+            CustomProp = "Custom value";
+            Title = "Home Controller - Index";
+            Book = new BookModel() { Id=1, Title="Test Title"};
             return View();
         }
 
