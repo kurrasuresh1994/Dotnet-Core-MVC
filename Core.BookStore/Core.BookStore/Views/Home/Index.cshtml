@@ -1,9 +1,7 @@
-﻿@* @{
+﻿@{
     ViewData["Title"] = "Home";
-} *@
-@{
-    var book = ViewData["Book"] as BookModel;
 }
+
 @section breadcrumb{
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -16,8 +14,6 @@
 <section class="jumbotron text-center">
     <div class="container">
         <h1>Welcome to Book store @ViewData["CustomProp"]</h1>
-        <h1>ID = @book?.Id</h1>
-        <h1>title = @book?.Title</h1>
         <p class="lead text-muted">
 
 

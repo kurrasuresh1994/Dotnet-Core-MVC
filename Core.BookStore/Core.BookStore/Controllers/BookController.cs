@@ -1,6 +1,7 @@
 ﻿using Core.BookStore.Models;
 using Core.BookStore.Repository;
 using Microsoft.AspNetCore.Mvc;
+using System.Dynamic;
 
 namespace Core.BookStore.Controllers
 {
@@ -14,17 +15,20 @@ namespace Core.BookStore.Controllers
         }
         public ViewResult GetAllBooks()
         {
-            var data= _bookRepository.GetAllBooks();
+            var data = _bookRepository.GetAllBooks();
             return View(data);
         }
 
         public ViewResult GetBook(int id)
         {
-            var data= _bookRepository.GetBook(id);
-            return View(data);
+            dynamic test = new ExpandoObject();
+            test.data = _bookRepository.GetBook(id);
+            test.name = "test";
+
+            return View(test);
         }
 
-        public List<BookModel> SearchBook(string title,string author)
+        public List<BookModel> SearchBook(string title, string author)
         {
             return _bookRepository.SearchBook(title, author);
         }
