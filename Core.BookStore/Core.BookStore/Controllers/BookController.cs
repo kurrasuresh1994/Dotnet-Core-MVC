@@ -1,12 +1,12 @@
 ﻿using Core.BookStore.Models;
-using Core.BookStore.Models.Repository;
+using Core.BookStore.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.BookStore.Controllers
 {
     public class BookController : Controller
     {
-        private readonly BookRepository _bookRepository=null;
+        private readonly BookRepository _bookRepository;
 
         public BookController()
         {
@@ -18,9 +18,10 @@ namespace Core.BookStore.Controllers
             return View(data);
         }
 
-        public BookModel GetBook(int id)
+        public ViewResult GetBook(int id)
         {
-            return _bookRepository.GetBook(id);
+            var data= _bookRepository.GetBook(id);
+            return View(data);
         }
 
         public List<BookModel> SearchBook(string title,string author)
