@@ -21,11 +21,8 @@ namespace Core.BookStore.Controllers
 
         public ViewResult GetBook(int id)
         {
-            dynamic test = new ExpandoObject();
-            test.data = _bookRepository.GetBook(id);
-            test.name = "test";
-
-            return View(test);
+            var data = _bookRepository.GetBook(id);
+            return View(data);
         }
 
         public List<BookModel> SearchBook(string title, string author)
