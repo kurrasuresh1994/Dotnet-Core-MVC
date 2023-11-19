@@ -27,7 +27,8 @@ namespace Core.BookStore.Repository
                 Description = bookModel.Description,
                 CreatedOn = DateTime.UtcNow,
                 TotalPages = bookModel.TotalPages.HasValue ? bookModel.TotalPages.Value : 0,
-                UpdatedOn = DateTime.UtcNow
+                UpdatedOn = DateTime.UtcNow,
+                Language = bookModel.Language
             };
             await _context.Books.AddAsync(newBook);
             await _context.SaveChangesAsync();

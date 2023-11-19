@@ -21,7 +21,7 @@ namespace Core.BookStore.Controllers
 
         public async Task<ViewResult> GetBook(int id)
         {
-            var data =await _bookRepository.GetBook(id);
+            var data = await _bookRepository.GetBook(id);
             return View(data);
         }
 
@@ -30,17 +30,22 @@ namespace Core.BookStore.Controllers
             return _bookRepository.SearchBook(title, author);
         }
 
-        public ViewResult AddNewBook(bool isSuccess=false,int bookId=0)
+        public ViewResult AddNewBook(bool isSuccess = false, int bookId = 0)
         {
+            var book = new BookModel()
+            {
+                Language = "Telugu"
+            };
+
             ViewBag.IsSuccess = isSuccess;
             ViewBag.BookId = bookId;
-            return View();
+            return View(book);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddNewBookAsync(BookModel bookModel)
+        public async Task<IActionResult> AddNewBook(BookModel bookModel)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var id = await _bookRepository.AddNewBook(bookModel);
                 if (id > 0)
@@ -48,7 +53,7 @@ namespace Core.BookStore.Controllers
                     return RedirectToAction(nameof(AddNewBook), new { isSuccess = true, bookId = id });
                 }
             }
-            
+            ModelState.AddModelError("", "This is custom error message");
             return View();
         }
 
