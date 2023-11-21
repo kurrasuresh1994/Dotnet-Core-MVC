@@ -1,4 +1,5 @@
-﻿@{
+﻿@using Core.BookStore.Enums;
+@{
     ViewData["Title"] = "Add New Book";
 }
 @model BookModel
@@ -9,7 +10,7 @@
     @if (ViewBag.IsSuccess == true)
     {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Congratulations</strong> You should added new book successfully.<br />
+            <strong>Congratulations</strong> You have added new book successfully.<br />
             Click <a asp-controller="Book" asp-action="GetBook" asp-route-id="@ViewBag.BookId">here</a> to view the details
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -20,14 +21,11 @@
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="form-group">
-            <label asp-for="Language" class="form-label"></label>
-            <select class="form-select" asp-for="Language">
-                <option value="">Please choose book language</option>
-                <option value="Telugu">Telugu(one of the best language)</option>
-                <option value="Hindi">Hindi(second language)</option>
-                <option value="English">English(global language)</option>
+            <label asp-for="LanguageId" class="form-label"></label>
+            <select class="form-select" asp-for="LanguageId" asp-items="ViewBag.Language">
+                <option value="">Please choose the languages</option>
             </select>
-            <span asp-validation-for="Language" class="text-danger"></span>
+            <span asp-validation-for="LanguageId" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label asp-for="Title" class="form-label"></label>

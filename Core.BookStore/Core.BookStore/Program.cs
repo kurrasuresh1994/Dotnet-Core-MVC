@@ -18,6 +18,7 @@ namespace Core.BookStore
             builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 #endif
             builder.Services.AddScoped<IBookRepository, BookRepository>();
+            builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
 
             //Add middlewares(http request handling pipeline)
             var app = builder.Build();

@@ -1,6 +1,7 @@
 ﻿using Core.BookStore.Models;
 using Core.BookStore.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Dynamic;
 
 namespace Core.BookStore.Controllers
@@ -8,10 +9,12 @@ namespace Core.BookStore.Controllers
     public class BookController : Controller
     {
         private readonly IBookRepository _bookRepository;
+        private readonly ILanguageRepository _languageRepository;
 
-        public BookController(IBookRepository bookRepository)
+        public BookController(IBookRepository bookRepository, ILanguageRepository languageRepository)
         {
             _bookRepository = bookRepository;
+            _languageRepository = languageRepository;
         }
         public async Task<ViewResult> GetAllBooks()
         {
@@ -25,21 +28,12 @@ namespace Core.BookStore.Controllers
             return View(data);
         }
 
-        public List<BookModel> SearchBook(string title, string author)
+        public async Task<ViewResult> AddNewBook(bool isSuccess = false, int bookId = 0)
         {
-            return _bookRepository.SearchBook(title, author);
-        }
-
-        public ViewResult AddNewBook(bool isSuccess = false, int bookId = 0)
-        {
-            var book = new BookModel()
-            {
-                Language = "Telugu"
-            };
-
+            ViewBag.Language = new SelectList(await _languageRepository.GetAllLanguages(), "Id", "Name");
             ViewBag.IsSuccess = isSuccess;
             ViewBag.BookId = bookId;
-            return View(book);
+            return View();
         }
 
         [HttpPost]
@@ -53,9 +47,9 @@ namespace Core.BookStore.Controllers
                     return RedirectToAction(nameof(AddNewBook), new { isSuccess = true, bookId = id });
                 }
             }
+            ViewBag.Language = new SelectList(await _languageRepository.GetAllLanguages(), "Id", "Name");
             ModelState.AddModelError("", "This is custom error message");
             return View();
         }
-
     }
 }

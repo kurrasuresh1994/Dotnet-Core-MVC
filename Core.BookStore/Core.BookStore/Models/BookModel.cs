@@ -1,10 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Core.BookStore.Enums;
+using Core.BookStore.Helpers;
+using System.ComponentModel.DataAnnotations;
 namespace Core.BookStore.Models
 {
     public class BookModel
     {
         public int Id { get; set; }
 
+        //[MyCustomValidation("MVC")]
         [StringLength(100, MinimumLength = 5)]
         [Required(ErrorMessage = "Please enter the title of the book")]
         public string Title { get; set; }
@@ -18,8 +21,10 @@ namespace Core.BookStore.Models
 
         public string? Category { get; set; }
 
-        [Required(ErrorMessage ="Please choose book laguage")]
-        public string? Language { get; set; }
+        [Required(ErrorMessage ="Please choose the book laguage")]
+        public int LanguageId { get; set; }
+
+        public string? Language {  get; set; }
 
         [Display(Name = "Total Pages of book")]
         [Required(ErrorMessage = "Please enter the total pages")]
