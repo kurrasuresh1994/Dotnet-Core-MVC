@@ -1,12 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core.BookStore.Repository;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Core.BookStore.Components
 {
     public class TopBooksViewComponent:ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync()
+        private readonly IBookRepository _bookRepository;
+
+        public TopBooksViewComponent(IBookRepository bookRepository)
         {
-            return View();
+            _bookRepository = bookRepository;
+        }
+        public async Task<IViewComponentResult> InvokeAsync(int count)
+        {
+            var books=await _bookRepository.GetTopBooks(count);
+            return View(books);
         }
     }
 }

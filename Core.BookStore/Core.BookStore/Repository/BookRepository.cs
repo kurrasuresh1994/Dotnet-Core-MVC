@@ -48,26 +48,6 @@ namespace Core.BookStore.Repository
 
         public async Task<List<BookModel>> GetAllBooks()
         {
-            //var books = new List<BookModel>();
-            //var allBooks = await _context.Books.ToListAsync();
-            //if (allBooks?.Any() == true)
-            //{
-            //    foreach (var book in allBooks)
-            //    {
-            //        books.Add(new BookModel()
-            //        {
-            //            Author = book.Author,
-            //            Title = book.Title,
-            //            Id = book.Id,
-            //            Description = book.Description,
-            //            TotalPages = book.TotalPages,
-            //            LanguageId = book.LanguageId,
-            //            Language = book.Language.Name,
-            //            Category = book.Category
-            //        });
-            //    }
-            //}
-
             return await _context.Books.Select(x =>
 
                 new BookModel()
@@ -108,6 +88,26 @@ namespace Core.BookStore.Repository
                         URL = s.URL,
                     }).ToList(),
                 }).FirstOrDefaultAsync();
+        }
+
+        public async Task<List<BookModel>> GetTopBooks(int count)
+        {
+            return await _context.Books.Select(x =>
+
+                new BookModel()
+                {
+                    Author = x.Author,
+                    Title = x.Title,
+                    Description = x.Description,
+                    Id = x.Id,
+                    TotalPages = x.TotalPages,
+                    LanguageId = x.LanguageId,
+                    Language = x.Language.Name,
+                    Category = x.Category,
+                    CoverImageUrl = x.CoverImageUrl,
+                    BookPdfUrl = x.BookPdfUrl,
+                }
+            ).Take(count).ToListAsync();
         }
     }
 }
