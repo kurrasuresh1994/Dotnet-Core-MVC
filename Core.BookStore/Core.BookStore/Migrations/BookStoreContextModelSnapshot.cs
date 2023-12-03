@@ -22,6 +22,32 @@ namespace Core.BookStore.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Core.BookStore.Data.BookGallery", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("URL")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("BookGallery");
+                });
+
             modelBuilder.Entity("Core.BookStore.Data.Books", b =>
                 {
                     b.Property<int>("Id")
@@ -34,7 +60,13 @@ namespace Core.BookStore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("BookPdfUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CoverImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("CreatedOn")
@@ -84,6 +116,17 @@ namespace Core.BookStore.Migrations
                     b.ToTable("Language");
                 });
 
+            modelBuilder.Entity("Core.BookStore.Data.BookGallery", b =>
+                {
+                    b.HasOne("Core.BookStore.Data.Books", "Book")
+                        .WithMany("bookGallery")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+                });
+
             modelBuilder.Entity("Core.BookStore.Data.Books", b =>
                 {
                     b.HasOne("Core.BookStore.Data.Language", "Language")
@@ -93,6 +136,11 @@ namespace Core.BookStore.Migrations
                         .IsRequired();
 
                     b.Navigation("Language");
+                });
+
+            modelBuilder.Entity("Core.BookStore.Data.Books", b =>
+                {
+                    b.Navigation("bookGallery");
                 });
 
             modelBuilder.Entity("Core.BookStore.Data.Language", b =>

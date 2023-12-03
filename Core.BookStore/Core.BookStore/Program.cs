@@ -16,6 +16,11 @@ namespace Core.BookStore
             builder.Services.AddControllersWithViews();
 #if DEBUG
             builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+            //UnComment this code to disable client side validation
+            //.AddViewOptions(options =>
+            //{
+            //    options.HtmlHelperOptions.ClientValidationEnabled = false;
+            //});
 #endif
             builder.Services.AddScoped<IBookRepository, BookRepository>();
             builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();

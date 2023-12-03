@@ -10,11 +10,13 @@ namespace Core.BookStore.Controllers
     {
         private readonly IBookRepository _bookRepository;
         private readonly ILanguageRepository _languageRepository;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public BookController(IBookRepository bookRepository, ILanguageRepository languageRepository)
+        public BookController(IBookRepository bookRepository, ILanguageRepository languageRepository, IWebHostEnvironment webHostEnvironment)
         {
             _bookRepository = bookRepository;
             _languageRepository = languageRepository;
+            _webHostEnvironment = webHostEnvironment;
         }
         public async Task<ViewResult> GetAllBooks()
         {
@@ -41,6 +43,30 @@ namespace Core.BookStore.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (bookModel.CoverPhoto != null)
+                {
+                    string folder = "books/cover/";
+                    bookModel.CoverImageUrl = await UploadImage(folder, bookModel.CoverPhoto);
+                }
+                if (bookModel.GalleryFiles != null)
+                {
+                    string folder = "books/gallery/";
+                    bookModel.Gallery = new List<GalleryModel>();
+                    foreach (var file in bookModel.GalleryFiles)
+                    {
+                        var gallery = new GalleryModel()
+                        {
+                            Name = file.Name,
+                            URL = await UploadImage(folder, file)
+                        };
+                        bookModel.Gallery.Add(gallery);
+                    }
+                }
+                if (bookModel.BookPdf != null)
+                {
+                    string folder = "books/pdf/";
+                    bookModel.BookPdfUrl = await UploadImage(folder, bookModel.BookPdf);
+                }
                 var id = await _bookRepository.AddNewBook(bookModel);
                 if (id > 0)
                 {
@@ -50,6 +76,14 @@ namespace Core.BookStore.Controllers
             ViewBag.Language = new SelectList(await _languageRepository.GetAllLanguages(), "Id", "Name");
             ModelState.AddModelError("", "This is custom error message");
             return View();
+        }
+
+        private async Task<string> UploadImage(string folderPath, IFormFile file)
+        {
+            folderPath += Guid.NewGuid().ToString() + "_" + file.FileName;
+            string serverFolder = Path.Combine(_webHostEnvironment.WebRootPath, folderPath);
+            await file.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+            return "/" + folderPath;
         }
     }
 }

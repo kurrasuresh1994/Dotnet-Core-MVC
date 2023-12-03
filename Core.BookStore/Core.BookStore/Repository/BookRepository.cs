@@ -28,8 +28,19 @@ namespace Core.BookStore.Repository
                 CreatedOn = DateTime.UtcNow,
                 TotalPages = bookModel.TotalPages.HasValue ? bookModel.TotalPages.Value : 0,
                 UpdatedOn = DateTime.UtcNow,
-                LanguageId = bookModel.LanguageId
+                LanguageId = bookModel.LanguageId,
+                CoverImageUrl = bookModel.CoverImageUrl,
+                BookPdfUrl = bookModel.BookPdfUrl,
             };
+            newBook.bookGallery = new List<BookGallery>();
+            foreach (var item in bookModel.Gallery)
+            {
+                newBook.bookGallery.Add(new BookGallery()
+                {
+                    Name = item.Name,
+                    URL = item.URL,
+                });
+            }
             await _context.Books.AddAsync(newBook);
             await _context.SaveChangesAsync();
             return newBook.Id;
@@ -68,7 +79,9 @@ namespace Core.BookStore.Repository
                     TotalPages = x.TotalPages,
                     LanguageId = x.LanguageId,
                     Language = x.Language.Name,
-                    Category = x.Category
+                    Category = x.Category,
+                    CoverImageUrl = x.CoverImageUrl,
+                    BookPdfUrl = x.BookPdfUrl,
                 }
             ).ToListAsync();
         }
@@ -85,7 +98,15 @@ namespace Core.BookStore.Repository
                     TotalPages = book.TotalPages,
                     LanguageId = book.LanguageId,
                     Language = book.Language.Name,
-                    Category = book.Category
+                    Category = book.Category,
+                    CoverImageUrl = book.CoverImageUrl,
+                    BookPdfUrl = book.BookPdfUrl,
+                    Gallery = book.bookGallery.Select(s => new GalleryModel()
+                    {
+                        Id = s.Id,
+                        Name = s.Name,
+                        URL = s.URL,
+                    }).ToList(),
                 }).FirstOrDefaultAsync();
         }
     }
