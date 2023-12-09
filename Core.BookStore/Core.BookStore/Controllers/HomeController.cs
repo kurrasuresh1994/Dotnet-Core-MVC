@@ -11,7 +11,7 @@ namespace Core.BookStore.Controllers
             return View();
         }
 
-        public ViewResult AboutUs()
+        public ViewResult AboutUs(int id, string name)
         {
             return View();
         }

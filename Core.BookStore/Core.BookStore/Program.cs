@@ -30,11 +30,17 @@ namespace Core.BookStore
 
             app.UseStaticFiles();
             // app.MapGet("/", () => "Hello World!");
+            app.UseRouting();
             app.MapDefaultControllerRoute();
             //app.MapControllerRoute(
             //    name: "default",
-            //    pattern: "bookapp/{controller=Home}/{action=Index}/{id?}");
+            //    pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            //Conventional routing
+            app.MapControllerRoute(
+                name: "Aboutus",
+                pattern: "About-us/{id?}",
+                defaults: new { controller = "Home", Action = "Aboutus" });
             app.Run();
         }
     }
