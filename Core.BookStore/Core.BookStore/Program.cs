@@ -37,10 +37,10 @@ namespace Core.BookStore
             //    pattern: "{controller=Home}/{action=Index}/{id?}");
 
             //Conventional routing
-            app.MapControllerRoute(
-                name: "Aboutus",
-                pattern: "About-us/{id?}",
-                defaults: new { controller = "Home", Action = "Aboutus" });
+            //app.MapControllerRoute(
+            //    name: "Aboutus",
+            //    pattern: "About-us/{id?}",
+            //    defaults: new { controller = "Home", Action = "Aboutus" });
             app.Run();
         }
     }

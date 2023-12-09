@@ -11,11 +11,14 @@ namespace Core.BookStore.Controllers
             return View();
         }
 
-        public ViewResult AboutUs(int id, string name)
+        [Route("about-us")]
+        [HttpGet]
+        public ViewResult AboutUs(int id)
         {
             return View();
         }
 
+        [HttpGet("contact-us")]
         public ViewResult ContactUs()
         {
             return View();
