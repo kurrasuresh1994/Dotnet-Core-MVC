@@ -31,8 +31,8 @@ namespace Core.BookStore
             app.UseStaticFiles();
             // app.MapGet("/", () => "Hello World!");
             app.UseRouting();
-            app.MapControllers();
-           // app.MapDefaultControllerRoute();
+            // app.MapControllers();
+            app.MapDefaultControllerRoute();
             //app.MapControllerRoute(
             //    name: "default",
             //    pattern: "{controller=Home}/{action=Index}/{id?}");

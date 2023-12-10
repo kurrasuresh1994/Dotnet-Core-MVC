@@ -6,7 +6,6 @@ using System.Dynamic;
 
 namespace Core.BookStore.Controllers
 {
-    [Route("[controller]/[action]")]
     public class BookController : Controller
     {
         private readonly IBookRepository _bookRepository;
@@ -27,7 +26,7 @@ namespace Core.BookStore.Controllers
             return View(data);
         }
 
-        [Route("~/book-details/{id}",Name ="bookDetailRoute")]
+        [Route("~/book-details/{id:int:min(1)}",Name ="bookDetailRoute")]
         public async Task<ViewResult> GetBook(int id)
         {
             var data = await _bookRepository.GetBook(id);
