@@ -6,6 +6,7 @@ using System.Dynamic;
 
 namespace Core.BookStore.Controllers
 {
+    [Route("[controller]/[action]")]
     public class BookController : Controller
     {
         private readonly IBookRepository _bookRepository;
@@ -18,12 +19,15 @@ namespace Core.BookStore.Controllers
             _languageRepository = languageRepository;
             _webHostEnvironment = webHostEnvironment;
         }
+
+        [Route("~/getall-books")]
         public async Task<ViewResult> GetAllBooks()
         {
             var data = await _bookRepository.GetAllBooks();
             return View(data);
         }
 
+        [Route("~/book-details/{id}",Name ="bookDetailRoute")]
         public async Task<ViewResult> GetBook(int id)
         {
             var data = await _bookRepository.GetBook(id);
