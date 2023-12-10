@@ -11,7 +11,7 @@ namespace Core.BookStore.Controllers
             return View();
         }
 
-        [Route("about-us")]
+        [Route("about-us",Name ="about-us")]
         [HttpGet]
         public ViewResult AboutUs(int id)
         {
