@@ -8,5 +8,6 @@ namespace Core.BookStore.Repository
         Task<List<BookModel>> GetAllBooks();
         Task<BookModel> GetBook(int id);
         Task<int> AddNewBook(BookModel bookModel);
+        string GetAppName();
     }
 }

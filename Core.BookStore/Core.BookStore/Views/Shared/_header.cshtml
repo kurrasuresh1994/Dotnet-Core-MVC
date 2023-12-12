@@ -1,8 +1,10 @@
-﻿<header>
+﻿@inject Core.BookStore.Repository.IBookRepository _bookRepository
+<header>
     <nav class="navbar navbar-expand-sm navbar-togglable-sm navbar-light bg-White border-bottom box-shadow mb-3">
         <div class="container">
             <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                <img src="~/images/book1.jpg" asp-append-version="true" alt="Logo" height="50px" /> Book Store
+                <img src="~/images/book1.jpg" asp-append-version="true" alt="Logo" height="50px" />
+                @_bookRepository.GetAppName()
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

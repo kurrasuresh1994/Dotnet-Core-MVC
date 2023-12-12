@@ -66,6 +66,11 @@ namespace Core.BookStore.Repository
             ).ToListAsync();
         }
 
+        public string GetAppName()
+        {
+            return "Book Store Application";
+        }
+
         public async Task<BookModel> GetBook(int id)
         {
             return await _context.Books.Where(x => x.Id == id)
