@@ -1,8 +1,6 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Home";
 }
-@inject Core.BookStore.Repository.IBookRepository _bookRepository;
 
 <section class="jumbotron text-center">
     <div class="container">
@@ -16,10 +14,6 @@
         </p>
     </div>
 </section>
-@foreach (var item in await _bookRepository.GetAllBooks())
-{
-    <h1>@item.Title</h1>
-}
 
 <div class="py-5 bg-light">
     <div class="container">
