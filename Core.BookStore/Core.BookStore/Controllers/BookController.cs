@@ -35,7 +35,6 @@ namespace Core.BookStore.Controllers
 
         public async Task<ViewResult> AddNewBook(bool isSuccess = false, int bookId = 0)
         {
-            ViewBag.Language = new SelectList(await _languageRepository.GetAllLanguages(), "Id", "Name");
             ViewBag.IsSuccess = isSuccess;
             ViewBag.BookId = bookId;
             return View();
@@ -76,7 +75,6 @@ namespace Core.BookStore.Controllers
                     return RedirectToAction(nameof(AddNewBook), new { isSuccess = true, bookId = id });
                 }
             }
-            ViewBag.Language = new SelectList(await _languageRepository.GetAllLanguages(), "Id", "Name");
             ModelState.AddModelError("", "This is custom error message");
             return View();
         }
