@@ -7,10 +7,12 @@ namespace Core.BookStore.Repository
     public class BookRepository : IBookRepository
     {
         private readonly BookStoreContext _context;
+        private readonly IConfiguration _configuration;
 
-        public BookRepository(BookStoreContext context)
+        public BookRepository(BookStoreContext context,IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -68,7 +70,7 @@ namespace Core.BookStore.Repository
 
         public string GetAppName()
         {
-            return "Book Store Application";
+            return _configuration["AppName"];
         }
 
         public async Task<BookModel> GetBook(int id)
